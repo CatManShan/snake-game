@@ -4,9 +4,13 @@ LIBS   = -pthread
 
 DEPS = src/snake/snake.h src/simpcg/simpcg.h src/simpcg/pixel-buffer.h Makefile
 
-.PHONY: all clean
+.PHONY: all make-dirs clean
 
-all: bin/snake-game
+all: make-dirs bin/snake-game
+
+make-dirs:
+	if [ ! -d obj ]; then mkdir obj; fi
+	if [ ! -d bin ]; then mkdir bin; fi
 
 bin/snake-game: obj/snake-game.o obj/snake.o obj/simpcg.o obj/pixel-buffer.o
 	$(CC) -o $@ $^ $(LIBS)
