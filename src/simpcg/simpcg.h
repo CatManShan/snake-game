@@ -1,10 +1,7 @@
-/* Dependencies
- * #include <stdbool.h>
- * #include <stdint.h>
- */
-
 #ifndef simpcg_h
 #define simpcg_h
+
+#include <stdint.h>
 
 enum SCGColorCode {
 	SCG_COLOR_DEFAULT = 0,
@@ -39,24 +36,24 @@ struct SCGBuffer {
 };
 
 struct SCGBuffer *scg_buffer_create(uint8_t width, uint8_t height);
-void scg_buffer_destroy(struct SCGBuffer *p_buffer);
+void scg_buffer_destroy(struct SCGBuffer *buffer);
 
-void scg_buffer_set_ch(struct SCGBuffer *p_buffer, uint8_t col, uint8_t row, char ch);
-char scg_buffer_get_ch(struct SCGBuffer *p_buffer, uint8_t col, uint8_t row);
-void scg_buffer_set_fg_color(struct SCGBuffer *p_buffer, uint8_t col, uint8_t row,
+void scg_buffer_set_ch(struct SCGBuffer *buffer, uint8_t col, uint8_t row, char ch);
+char scg_buffer_get_ch(struct SCGBuffer *buffer, uint8_t col, uint8_t row);
+void scg_buffer_set_fg_color(struct SCGBuffer *buffer, uint8_t col, uint8_t row,
 		enum SCGColorCode fg_color);
-enum SCGColorCode scg_buffer_get_fg_color(struct SCGBuffer *p_buffer, uint8_t col, uint8_t row);
-void scg_buffer_set_bg_color(struct SCGBuffer *p_buffer, uint8_t col, uint8_t row,
+enum SCGColorCode scg_buffer_get_fg_color(struct SCGBuffer *buffer, uint8_t col, uint8_t row);
+void scg_buffer_set_bg_color(struct SCGBuffer *buffer, uint8_t col, uint8_t row,
 		enum SCGColorCode bg_color);
-enum SCGColorCode scg_buffer_get_bg_color(struct SCGBuffer *p_buffer, uint8_t col, uint8_t row);
+enum SCGColorCode scg_buffer_get_bg_color(struct SCGBuffer *buffer, uint8_t col, uint8_t row);
 
-void scg_buffer_fill_ch(struct SCGBuffer *p_buffer, char ch);
-void scg_buffer_fill_fg_color(struct SCGBuffer *p_buffer, enum SCGColorCode fg_color);
-void scg_buffer_fill_bg_color(struct SCGBuffer *p_buffer, enum SCGColorCode bg_color);
+void scg_buffer_fill_ch(struct SCGBuffer *buffer, char ch);
+void scg_buffer_fill_fg_color(struct SCGBuffer *buffer, enum SCGColorCode fg_color);
+void scg_buffer_fill_bg_color(struct SCGBuffer *buffer, enum SCGColorCode bg_color);
 
-void scg_buffer_make_space(struct SCGBuffer *p_buffer);
-void scg_buffer_remove_space(struct SCGBuffer *p_buffer);
-void scg_buffer_print(struct SCGBuffer *p_buffer);
+void scg_buffer_make_space(struct SCGBuffer *buffer);
+void scg_buffer_remove_space(struct SCGBuffer *buffer);
+void scg_buffer_print(struct SCGBuffer *buffer);
 
 void scg_input_adjust();
 void scg_input_restore();

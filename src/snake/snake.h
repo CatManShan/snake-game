@@ -1,10 +1,8 @@
-/* Dependencies
- * <stdint.h>
- * <stdbool.h>
- */
-
 #ifndef snake_h
 #define snake_h
+
+#include <stdbool.h>
+#include <stdint.h>
 
 enum SnakeDirection {
 	SNAKE_DIRECTION_UP,

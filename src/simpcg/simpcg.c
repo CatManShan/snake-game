@@ -1,9 +1,14 @@
-#include <stdbool.h>
-#include <stdint.h>
 #include <stdio.h>
+#include <stddef.h>
 #include <stdlib.h>
 
+#include "../mem-macros/mem-macros.h"
+
 #include "simpcg.h" // Interface
+
+#ifdef MEM_DEBUG
+#include "../mem-debug/mem-debug.h"
+#endif
 
 static void scg_print_cell(struct SCGCell cell);
 static uint8_t scg_color_code_to_ansi_fg(enum SCGColorCode color_code);
@@ -12,106 +17,106 @@ static uint8_t scg_color_code_to_ansi_bg(enum SCGColorCode color_code);
 struct SCGBuffer *scg_buffer_create(uint8_t width, uint8_t height)
 {
 	size_t cells_size = width * height;
-	struct SCGBuffer *p_buffer = malloc(sizeof *p_buffer + sizeof p_buffer->cells[0] * cells_size);
+	struct SCGBuffer *buffer = ALLOC_FLEX_STRUCT(buffer, cells, cells_size);
 
-	p_buffer->width = width;
-	p_buffer->height = height;
+	buffer->width = width;
+	buffer->height = height;
 
-	return p_buffer;
+	return buffer;
 }
 
-void scg_buffer_destroy(struct SCGBuffer *p_buffer)
+void scg_buffer_destroy(struct SCGBuffer *buffer)
 {
-	free(p_buffer);
+	free(buffer);
 }
 
-inline void scg_buffer_set_ch(struct SCGBuffer *p_buffer, uint8_t col, uint8_t row, char ch)
+inline void scg_buffer_set_ch(struct SCGBuffer *buffer, uint8_t col, uint8_t row, char ch)
 {
-	p_buffer->cells[row * p_buffer->width + col].ch = ch;
+	buffer->cells[row * buffer->width + col].ch = ch;
 }
 
-inline char scg_buffer_get_ch(struct SCGBuffer *p_buffer, uint8_t col, uint8_t row)
+inline char scg_buffer_get_ch(struct SCGBuffer *buffer, uint8_t col, uint8_t row)
 {
-	return p_buffer->cells[row * p_buffer->width + col].ch;
+	return buffer->cells[row * buffer->width + col].ch;
 }
 
-inline void scg_buffer_set_fg_color(struct SCGBuffer *p_buffer, uint8_t col, uint8_t row, enum SCGColorCode fg_color)
+inline void scg_buffer_set_fg_color(struct SCGBuffer *buffer, uint8_t col, uint8_t row, enum SCGColorCode fg_color)
 {
-	p_buffer->cells[row * p_buffer->width + col].fg_color = fg_color;
+	buffer->cells[row * buffer->width + col].fg_color = fg_color;
 }
 
-inline enum SCGColorCode scg_buffer_get_fg_color(struct SCGBuffer *p_buffer, uint8_t col, uint8_t row)
+inline enum SCGColorCode scg_buffer_get_fg_color(struct SCGBuffer *buffer, uint8_t col, uint8_t row)
 {
-	return p_buffer->cells[row * p_buffer->width + col].fg_color;
+	return buffer->cells[row * buffer->width + col].fg_color;
 }
 
-inline void scg_buffer_set_bg_color(struct SCGBuffer *p_buffer, uint8_t col, uint8_t row, enum SCGColorCode bg_color)
+inline void scg_buffer_set_bg_color(struct SCGBuffer *buffer, uint8_t col, uint8_t row, enum SCGColorCode bg_color)
 {
-	p_buffer->cells[row * p_buffer->width + col].bg_color = bg_color;
+	buffer->cells[row * buffer->width + col].bg_color = bg_color;
 }
 
-inline enum SCGColorCode scg_buffer_get_bg_color(struct SCGBuffer *p_buffer, uint8_t col, uint8_t row)
+inline enum SCGColorCode scg_buffer_get_bg_color(struct SCGBuffer *buffer, uint8_t col, uint8_t row)
 {
-	return p_buffer->cells[row * p_buffer->width + col].bg_color;
+	return buffer->cells[row * buffer->width + col].bg_color;
 }
 
-void scg_buffer_fill_ch(struct SCGBuffer *p_buffer, char ch)
+void scg_buffer_fill_ch(struct SCGBuffer *buffer, char ch)
 {
-	uint8_t width = p_buffer->width;
-	uint8_t height = p_buffer->height;
+	uint8_t width = buffer->width;
+	uint8_t height = buffer->height;
 	for (uint8_t row = 0; row < height; row++) {
 		for (uint8_t col = 0; col < width; col++) {
-			scg_buffer_set_ch(p_buffer, col, row, ch);
+			scg_buffer_set_ch(buffer, col, row, ch);
 		}
 	}
 }
 
-void scg_buffer_fill_fg_color(struct SCGBuffer *p_buffer, enum SCGColorCode fg_color)
+void scg_buffer_fill_fg_color(struct SCGBuffer *buffer, enum SCGColorCode fg_color)
 {
-	uint8_t width = p_buffer->width;
-	uint8_t height = p_buffer->height;
+	uint8_t width = buffer->width;
+	uint8_t height = buffer->height;
 	for (uint8_t row = 0; row < height; row++) {
 		for (uint8_t col = 0; col < width; col++) {
-			scg_buffer_set_fg_color(p_buffer, col, row, fg_color);
+			scg_buffer_set_fg_color(buffer, col, row, fg_color);
 		}
 	}
 }
 
-void scg_buffer_fill_bg_color(struct SCGBuffer *p_buffer, enum SCGColorCode bg_color)
+void scg_buffer_fill_bg_color(struct SCGBuffer *buffer, enum SCGColorCode bg_color)
 {
-	uint8_t width = p_buffer->width;
-	uint8_t height = p_buffer->height;
+	uint8_t width = buffer->width;
+	uint8_t height = buffer->height;
 	for (uint8_t row = 0; row < height; row++) {
 		for (uint8_t col = 0; col < width; col++) {
-			scg_buffer_set_bg_color(p_buffer, col, row, bg_color);
+			scg_buffer_set_bg_color(buffer, col, row, bg_color);
 		}
 	}
 }
 
-void scg_buffer_make_space(struct SCGBuffer *p_buffer)
+void scg_buffer_make_space(struct SCGBuffer *buffer)
 {
-	for (uint8_t row = 0; row < p_buffer->height; row++) {
+	for (uint8_t row = 0; row < buffer->height; row++) {
 		printf("\n\x1b[G"); // Add <height> lines to bottom of console
 	}
 }
 
-void scg_buffer_remove_space(struct SCGBuffer *p_buffer)
+void scg_buffer_remove_space(struct SCGBuffer *buffer)
 {
-	printf("\x1b[%dA", p_buffer->height); // Move to top of buffer
+	printf("\x1b[%dA", buffer->height); // Move to top of buffer
 	printf("\x1b[G"); // Move to 1st column
 	printf("\x1b[J"); // Clear to bottom line
 }
 
-void scg_buffer_print(struct SCGBuffer *p_buffer)
+void scg_buffer_print(struct SCGBuffer *buffer)
 {
-	uint8_t width = p_buffer->width;
-	uint8_t height = p_buffer->height;
+	uint8_t width = buffer->width;
+	uint8_t height = buffer->height;
 
 	printf("\x1b[G"); // Move to 1st column
 	printf("\x1b[%dA", height); // Move to top of buffer
 	for (uint8_t row = 0; row < height; row++) {
 		for (uint8_t col = 0; col < width; col++) {
-			scg_print_cell(p_buffer->cells[row * width + col]);
+			scg_print_cell(buffer->cells[row * width + col]);
 		}
 		printf("\x1b[B"); // Move down 1 line
 		printf("\x1b[G"); // Move to 1st column
