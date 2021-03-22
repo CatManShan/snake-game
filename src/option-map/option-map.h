@@ -15,7 +15,7 @@ enum OptionMapErrorCode {
 
 struct OptionMapOption {
 	char **aliases;
-	bool takes_value;
+	bool takes_value; // TODO: refactor -> takes_arg (??)
 
 	bool given;
 	char *value;

@@ -82,8 +82,6 @@ int main(int argc, char **argv)
 		}
 	}
 
-	pthread_join(input_thread, NULL);
-
 	// Cleanup
 	
 	snake_destroy(snake);
@@ -104,12 +102,9 @@ int main(int argc, char **argv)
 
 static struct GameOptions parse_options(int argc, char **argv)
 {
-	const char *MISSING_ARG_MSG = "the '%s' option requires an argument";
-	const char *UNKOWN_OPTION_MSG = "unknown option '%s'";
-
-	char *quit_on_loss_aliases[] = {"--quit-on-loss",    "-q", NULL};
-	char *size_aliases[]         = {"--size",            "-s", NULL};
-	char *speed_aliases[]        = {"--speed",           "-S", NULL};
+	char *quit_on_loss_aliases[] = {"--quit-on-loss", "-q", NULL};
+	char *size_aliases[]         = {"--size",         "-s", NULL};
+	char *speed_aliases[]        = {"--speed",        "-S", NULL};
 
 	struct OptionMapOption options[] = {
 		{ .aliases = quit_on_loss_aliases, .takes_value = false },

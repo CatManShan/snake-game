@@ -216,7 +216,7 @@ void option_map_print_error_message(FILE *stream, const char *prefix, struct Opt
 {
 	static const char *ERROR_MESSAGES[OM_ERROR_COUNT] = {
 		[OM_NO_ERROR]       = "",
-		[OM_MISSING_ARG]    = "the '%s' option requires an argument",
+		[OM_MISSING_ARG]    = "option '%s' requires an argument",
 		[OM_UNKNOWN_OPTION] = "unknown option '%s'"
 	};
 
