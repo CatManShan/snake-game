@@ -1,6 +1,6 @@
 # snake-game
 
-Snake made using simpcg (Simple Console Graphics), a dumb console graphics API I made in a couple hours.
+Snake game built with some simple libraries I made.
 
-To build, just run `make`.
+To build, run `make clean all`.
 
