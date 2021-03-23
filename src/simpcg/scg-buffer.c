@@ -2,13 +2,13 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-#include "../mem-macros/mem-macros.h"
-
-#include "simpcg.h" // Interface
+#include "../mem-utils/mem-macros.h"
 
 #ifdef MEM_DEBUG
-#include "../mem-debug/mem-debug.h"
+#include "../mem-utils/mem-debug.h"
 #endif
+
+#include "simpcg.h"
 
 static void scg_print_cell(struct SCGCell cell);
 static uint8_t scg_color_code_to_ansi_fg(enum SCGColorCode color_code);

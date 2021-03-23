@@ -1,4 +1,4 @@
-#include "pixel-buffer.h" // Interface
+#include "simpcg.h" // Interface
 
 struct SCGPixelBuffer *scg_pixel_buffer_create(uint8_t width, uint8_t height)
 {

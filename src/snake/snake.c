@@ -1,12 +1,12 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "../mem-macros/mem-macros.h"
+#include "../mem-utils/mem-macros.h"
 
 #include "snake.h" // Interface
 
 #ifdef MEM_DEBUG
-#include "../mem-debug/mem-debug.h"
+#include "../mem-utils/mem-debug.h"
 #endif
 
 static void snake_move_head(struct Snake *snake, uint8_t bounds_width, uint8_t bounds_height);

@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "mem-debug.h"
 #undef MEM_DEBUG // MEM_DEBUG shouldn't be defined here
+#include "mem-debug.h"
 
 static bool initialized = false;
 

@@ -6,14 +6,13 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "mem-macros/mem-macros.h"
+#include "mem-utils/mem-macros.h"
 #include "option-map/option-map.h"
 #include "simpcg/simpcg.h"
-#include "simpcg/pixel-buffer.h"
 #include "snake/snake.h"
 
 #ifdef MEM_DEBUG
-#include "mem-debug/mem-debug.h"
+#include "mem-utils/mem-debug.h"
 #endif
 
 struct CrossThreadData {

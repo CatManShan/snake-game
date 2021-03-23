@@ -2,10 +2,10 @@
 #include <string.h>
 
 #include "option-map.h"
-#include "../mem-macros/mem-macros.h"
+#include "../mem-utils/mem-macros.h"
 
 #ifdef MEM_DEBUG
-#include "../mem-debug/mem-debug.h"
+#include "../mem-utils/mem-debug.h"
 #endif
 
 static struct OptionMapError om_last_error = { OM_NO_ERROR, NULL };

@@ -5,14 +5,13 @@ LIBS   = -pthread
 
 DEPS = src/snake/snake.h \
        src/simpcg/simpcg.h \
-       src/simpcg/pixel-buffer.h \
        src/option-map/option-map.h \
        $(DEBUG_DEPS)
 
 OBJS = obj/snake-game.o \
        obj/snake.o \
-       obj/simpcg.o \
-       obj/pixel-buffer.o \
+       obj/scg-buffer.o \
+       obj/scg-pixel-buffer.o \
        obj/option-map.o \
        $(DEBUG_OBJS)
 
@@ -44,10 +43,10 @@ obj/snake.o: src/snake/snake.c $(DEPS)
 
 # simpcg
 
-obj/simpcg.o: src/simpcg/simpcg.c $(DEPS)
+obj/scg-buffer.o: src/simpcg/scg-buffer.c $(DEPS)
 	$(CC) -c -o $@ $< $(DEFINES)
 
-obj/pixel-buffer.o: src/simpcg/pixel-buffer.c $(DEPS)
+obj/scg-pixel-buffer.o: src/simpcg/scg-pixel-buffer.c $(DEPS)
 	$(CC) -c -o $@ $< $(DEFINES)
 
 # option-map
@@ -55,7 +54,7 @@ obj/option-map.o: src/option-map/option-map.c $(DEPS)
 	$(CC) -c -o $@ $< $(DEFINES)
 
 # mem-debug
-obj/mem-debug.o: src/mem-debug/mem-debug.c $(DEPS)
+obj/mem-debug.o: src/mem-utils/mem-debug.c $(DEPS)
 	$(CC) -c -o $@ $<
 
 clean:
