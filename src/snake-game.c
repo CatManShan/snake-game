@@ -28,7 +28,7 @@ struct GameOptions {
 };
 
 static struct GameOptions parse_options(int argc, char **argv);
-static void draw_game_buffer(struct SCGPixelBuffer *game_buffer, struct Snake *snake, struct SnakeFood food);
+static void draw_game_buffer(struct SCGBuffer *game_buffer, struct Snake *snake, struct SnakeFood food);
 static void *parse_input_func(void *vp_data);
 
 int main(int argc, char **argv)
@@ -43,7 +43,7 @@ int main(int argc, char **argv)
 
 	// Game Setup
 
-	struct SCGPixelBuffer *game_buffer = scg_pixel_buffer_create(game_options.width, game_options.height);
+	struct SCGBuffer *game_buffer = scg_pixel_buffer_create(game_options.width, game_options.height);
 	scg_pixel_buffer_make_space(game_buffer);
 	scg_input_adjust();
 
@@ -145,7 +145,7 @@ static struct GameOptions parse_options(int argc, char **argv)
 	return game_options;
 }
 
-static void draw_game_buffer(struct SCGPixelBuffer *game_buffer, struct Snake *snake, struct SnakeFood food)
+static void draw_game_buffer(struct SCGBuffer *game_buffer, struct Snake *snake, struct SnakeFood food)
 {
 	scg_pixel_buffer_fill(game_buffer, SCG_COLOR_BRIGHT_BLACK);
 
