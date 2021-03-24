@@ -22,7 +22,7 @@ DEFINES= -D_DEFAULT_SOURCE $(DEBUG)
 all: make-dirs bin/snake-game
 
 debug:
-	make all DEBUG_DEPS=src/mem-debug/mem-debug.h DEBUG_OBJS=obj/mem-debug.o OPTIMIZATION=-g DEBUG=-DMEM_DEBUG
+	make all DEBUG_DEPS=src/mem-utils/mem-debug.h DEBUG_OBJS=obj/mem-debug.o OPTIMIZATION=-g DEBUG=-DMEM_DEBUG
 
 make-dirs: obj/ bin/
 
