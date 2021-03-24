@@ -55,8 +55,8 @@ void scg_buffer_make_space(struct SCGBuffer *buffer);
 void scg_buffer_remove_space(struct SCGBuffer *buffer);
 void scg_buffer_print(struct SCGBuffer *buffer);
 
-void scg_input_adjust();
-void scg_input_restore();
+int scg_input_adjust();
+int scg_input_restore();
 
 /*** SCGPixelBuffer ***/
 
