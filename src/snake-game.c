@@ -15,6 +15,8 @@
 #include "mem-utils/mem-debug.h"
 #endif
 
+#define CTRL_C '\003'
+
 struct CrossThreadData {
 	volatile enum SnakeDirection input_direction;
 	volatile bool quit;
@@ -186,7 +188,7 @@ static void *parse_input_func(void *vp_data)
 		case 'd':
 			p_data->input_direction = SNAKE_DIRECTION_RIGHT;
 			break;
-		case 'q':
+		case CTRL_C:
 			p_data->quit = true;
 			break;
 		}
